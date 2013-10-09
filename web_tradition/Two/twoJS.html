@@ -1,0 +1,217 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>Homework4</title>
+    <script type="text/javascript">
+    /*loadXML function will load the function using XMLHttpRequest functon
+     *@par: url -the url location of xml file
+     *@return: xmlDoc -the got xml file
+     */
+	function loadXML(url) 
+	{
+		if (window.XMLHttpRequest) // code for IE7+, Firefox, Chrome, Opera, Safari
+	    	xmlhttp=new XMLHttpRequest();   
+	    else // code for IE6, IE5
+	    	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");  
+	    xmlhttp.open("GET",url,false);
+	    xmlhttp.send();
+	    xmlDoc=xmlhttp.responseXML;
+	    if(!xmlDoc) //For no-Firefox, a way to check xml parse error
+	    {
+	    	alert("Error in XML file");
+	    	return undefined;
+	    }
+	    return xmlDoc;   
+	}
+	/*generateHTML function is used to generate the html file(parse the xml result)
+     *@par: xmlDoc -the got xml file
+     *@return: html_text -the srting contains the generated html
+     */
+    function generateHTML(xmlDoc)
+    {
+    	var html_text="";
+        var root=xmlDoc.documentElement; //root element of xml
+        var food=root.getElementsByTagName("food"); 
+        if(root.nodeName=="parsererror") //For Firefox, a way to check xml parse error
+        {
+            alert("Error in XML file");
+            return undefined;
+        }else if(food.length==0) // check whether has food element
+        {
+            alert("Error:Wrong XML, no food element!");
+            return undefined;
+        }
+        html_text+="<html><head><title>XML Parse Result</title></head><body>";
+        html_text+="<table border='2'>";
+        html_text+="<tr><th colspan='16'>Daily Value</th></tr>";
+        // add the daily value element values into a row
+        html_text+="<tr>";
+        var daily_value=root.getElementsByTagName("daily-values")[0].childNodes; //element in daily-values root element
+        for(i=0;i<daily_value.length;i++)
+        {
+            if(daily_value[i].nodeType==1) // 1 is element node
+            {
+                html_text+="<th>"+daily_value[i].nodeName+"</th>";
+                if(daily_value[i].childNodes[0]) // check whether is empty element
+                    html_text+="<th>"+daily_value[i].childNodes[0].nodeValue+" "; // add value if has 
+                else
+                    html_text+="<th>NA "; // add NA to indicate empty value
+                if(daily_value[i].getAttribute("units")) // check whether the units attribute exists
+                    html_text+=daily_value[i].getAttribute("units")+"</th>";
+                else
+                    html_text+="NA</th>";
+            }
+        }
+        html_text+="</tr>";
+        html_text+="<tr><th colspan='16'>Nutrition Categories</th></tr>";
+        // adding nutrition element items into a row
+        html_text+="<tr>";
+        var foodNodeList=food[0].childNodes; // choose the first food element
+        for(i=0;i<foodNodeList.length;i++)
+        {
+            if(foodNodeList[i].nodeType==1)
+            {
+                var element_name=foodNodeList[i].nodeName;
+                if(foodNodeList[i].childNodes.length>2) // check whether is the vitamins or minerials elements(has more then 2 childNodes)
+                {
+                    var multiNode=foodNodeList[i].childNodes;
+                    for(j=0;j<multiNode.length;j++) // sub-element of vitamin or minerials
+                    {
+                        if(multiNode[j].nodeType==1)
+                            html_text+="<th>"+element_name+"-"+multiNode[j].nodeName+"</th>";
+                    }   
+                }else
+                    html_text+="<th>"+element_name+"</th>";
+            }
+        }
+        html_text+="</tr>";
+        html_text+="<tr><th colspan='16'>Food</th></tr>";
+        // adding each food infor. into a row
+        for(i=0;i<food.length;i++)
+        {
+            foodNodeList=food[i].childNodes; 
+            for(j=0;j<foodNodeList.length;j++) // traverse each elements in one food element
+            {  
+                if(foodNodeList[j].nodeType==1)
+                {
+                	// handle differently based on different node element
+                    if(foodNodeList[j].nodeName=="photo") // handle photo element, fill the url
+                    { 
+                        if(foodNodeList[j].firstChild) // if not empty value contains
+                        {
+                            html_text+="<td><img src='http://www-scf.usc.edu/~csci571/2013Spring/hw4/"+
+                            foodNodeList[j].firstChild.nodeValue+"' width='70' height='70'></td>"; 
+                        }else
+                            html_text+="<td>Pic. NA</td>";   
+                    }else if(foodNodeList[j].nodeName=="serving") // for serving element
+                    {
+                        if(foodNodeList[j].firstChild) // if not empty value contains
+                        {
+                            html_text+="<td>"+foodNodeList[j].firstChild.nodeValue+" ";
+                        }else
+                            html_text+="<td>NA ";
+                        if(foodNodeList[j].getAttribute("units")) // if units attritbute defined and not empty value
+                            html_text+=foodNodeList[j].getAttribute("units")+"</td>";
+                        else
+                            html_text+="NA</td>";
+                    }else if(foodNodeList[j].nodeName=="calories") // for clories element
+                    {
+                        if(foodNodeList[j].getAttribute("total"))
+                            html_text+="<td>"+foodNodeList[j].getAttribute("total")+"total, ";
+                        else
+                            html_text+="<td>NA total, ";
+                        if(foodNodeList[j].getAttribute("fat"))
+                            html_text+=foodNodeList[j].getAttribute("fat")+"fat</td>";
+                        else
+                            html_text+="NA fat</td>";
+                    }else if(foodNodeList[j].nodeName=="vitamins" || foodNodeList[j].nodeName=="minerals")  // for vitamins and minerals
+                    {
+                        multiNode=foodNodeList[j].childNodes;
+                        var count_element=0; // used to count the element number of vitamins and minerals
+                        for(t=0;t<multiNode.length;t++)
+                        {
+                            if(multiNode[t].nodeType==1)
+                            {
+                                count_element+=1; //add one if found
+                                if(multiNode[t].firstChild) // not empty value
+                                    html_text+="<td>"+multiNode[t].firstChild.nodeValue+"</td>";
+                                else
+                                    html_text+="<td>NA</td>";
+                            }
+                        }
+                        // check whether the number of elements in vitamins and minerals is 2, if not give a alert
+                        if(count_element!=2)
+                        {
+                            alert("Error: Vimtamins or Minerals should have two elements!");
+                            return undefined;   
+                        }   
+                    }else // for the rest nodes
+                    {
+                        if(foodNodeList[j].firstChild)
+                            html_text+="<td>"+foodNodeList[j].firstChild.nodeValue+"</td>";
+                        else
+                            html_text+="<td>NA</td>";
+                    }
+                }    
+            }
+            html_text+="</tr>"; 
+        }
+        return html_text;
+    }
+    /*viewXML function is used to open a window to show the nutrition table
+     *@par: input_form -contain the form object
+     */
+    function viewXML(input_form)
+    {
+        var URL = input_form.URL.value; // get the url infor.
+        if(!URL) // if nothing input, URL return false, give a alert
+        {
+            alert("Warning:Empty URL, please enter the URL of XML!");
+            return 0;
+        }
+        var html_file;      
+        xmlDoc = loadXML(URL);
+        if (window.ActiveXObject) // for IE
+        {  
+            html_file=generateHTML(xmlDoc);
+            if(html_file) // load window content only if html_file is true
+            {
+                hWin = window.open("", "nutrition", "height=1000,width=1200");
+                hWin.document.body.innerHTML=html_file;
+                hWin.document.close(); 
+            }  
+        } else //For non-IE
+        { 
+            html_file=generateHTML(xmlDoc);
+            if(html_file) // load window content only if html_file is true
+            {
+                hWin = window.open("", "nutrition", "scrollbars=1,height=1000,width=1200");
+                hWin.document.body.innerHTML=html_file;
+                hWin.document.close(); 
+            } 
+        }
+         
+    }
+    </script>
+</head>
+
+<body>
+    <center>
+        <br>
+        <br>
+        Enter URL for Nutrition XML file
+
+        <form method="post" id="myform">
+            <input type="text" name="URL" maxlength="120" size="50"><br>
+            <input type="button" name="submit" value="Submit Query" onclick="viewXML(this.form)">
+        </form>
+    </center>
+<NOSCRIPT>
+<div style="display: block; font-family: Verdana, Geneva, Arial; font-size: 10px">
+The University of Southern California does not screen or control the content on this website and thus does not guarantee the accuracy, integrity, or quality of such content.  All content on this website is provided by and is the sole responsibility of the person from which such content originated, and such content does not necessarily reflect the opinions of the University administration or the Board of Trustees
+</div>
+</body>
+</html>
