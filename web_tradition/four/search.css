@@ -1,0 +1,42 @@
+div#container {
+	width:310px;
+	height:110px;
+	margin:0 auto;
+	padding-top:5px;
+	border:ridge;
+}
+
+div#menu {
+	height:20px;
+	width:100px;
+	padding-top:10px;
+	padding-left:10px;
+	float:left;
+	color:#3598e4;
+}
+
+div#content {
+	height:20px;
+	width:200px;
+	padding-top:10px;
+	float:left;
+}
+
+div#input {
+	height:20px;
+	padding-top:10px;
+	padding-right:10px;
+	float:right;
+}
+
+h1,h2 {
+	color:#3598e4;
+}
+img.fb {
+	cursor:pointer;
+}
+
+table {
+	margin-left:auto;
+	margin-right:auto;
+}

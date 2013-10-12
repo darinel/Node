@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Discography Search</title>
+    <link rel="stylesheet" type="text/css" href="search.css" />
+</head>
+
+<body>
+<script type = "text/javascript" src="musicsearch.js"></script>
+    <br>
+
+    <center>
+        <p><h2><b>Discography Search</b></h2></p>
+    </center>
+
+    <div id="container">
+            <div id="menu">
+                Title:
+            </div>
+
+            <div id="content">
+                <input id="title" type="text" size="23">
+            </div>
+
+            <div id="menu">
+                Type:
+            </div>
+
+            <div id="content">
+                <select id="type">
+                    <option value = "artists">
+                        Artists
+                    </option>
+
+                    <option value = "albums">
+                        Albums
+                    </option>
+
+                    <option value = "songs">
+                        Songs
+                    </option>
+                </select>
+            </div>
+
+            <div id="input">
+                <button onclick= "return validateForm();">Search</button>
+            </div>
+    </div>
+    <div id="table"></div>
+    <div id="fb-root"></div>
+    <script type = "text/javascript">
+	    window.fbAsyncInit = function() {
+	    // init the FB JS SDK
+		    FB.init({
+		      appId      : '141544786024886',                        // App ID from the app dashboard
+		      status     : true,                                 // Check Facebook Login status
+		      xfbml      : true,                                 // Look for social plugins on the page
+		      cookie     : true 
+		    });
+	    // Additional initialization code such as adding Event Listeners goes here
+	    };
+	    // Load the SDK asynchronously
+	    (function(d){
+	    	var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+	    	if (d.getElementById(id)) {return;}
+	    	js = d.createElement('script'); js.id = id; js.async = true;
+	    	js.src = "//connect.facebook.net/en_US/all.js";
+	    	ref.parentNode.insertBefore(js, ref);
+	    }(document));
+	</script>
+    <NOSCRIPT>
+</body>
+</html>
