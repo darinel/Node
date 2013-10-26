@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>Worstsort program</title>
+</head>
+
+<body>
+    <h1>Worstsort program</h1>
+    <pre>
+void worstsort (element list[], int n)
+/* this may be the shortest sorting algorithm
+to write, but it is not very efficient
+see <a href="http://www-cs-staff.stanford.edu/~knuth/">http://wwwcs-staff.stanford.edu/~knuth/</a>
+for more information on sorting*/
+{ int i;
+  element temp;
+  100: for (i=0, i &lt; n-1; i++)
+        if (list[i] &gt; list[i+1])
+            { temp=list{i};
+              list[i]=list[i+1];
+              list[i+1]=temp;
+              go to 100;
+            }
+            
+}
+</pre><br>
+
+    <h1>Definition Lists</h1>
+
+    <dl>
+        <dt>light year</dt>
+
+        <dd>The distance light travels in one year.</dd>
+
+        <dt>asteroids</dt>
+
+        <dd>are small, irregular shaped objects, mostly occurring between Mars and Jupiter.</dd>
+    </dl><br>
+
+    <h1>Unordered List</h1>
+
+    <ul>
+        <li>Mars
+
+            <ul>
+                <li>demos
+
+                    <ul>
+                        <li>orbit</li>
+
+                        <li>diameter</li>
+
+                        <li>mass</li>
+                    </ul>
+                </li>
+
+                <li>phobos</li>
+            </ul>
+        </li>
+
+        <li>Jupiter</li>
+    </ul><br>
+
+    <h1>Ordered List</h1>
+
+    <ol start="4">
+        <li>Mars
+
+            <ol type="A">
+                <li>orbit</li>
+
+                <li>diameter</li>
+
+                <li>mass</li>
+            </ol>
+        </li>
+
+        <li>Phobos</li>
+    </ol><br>
+
+    <h1>Table: 3 Rows 2 Cols</h1>
+
+    <table border>
+        <caption>
+            MIME Content-Types
+        </caption>
+
+        <tr>
+            <td>application/postscript</td>
+
+            <td>Postscript</td>
+        </tr>
+
+        <tr>
+            <td>application/rtf</td>
+
+            <td>MS Rich Text Format</td>
+        </tr>
+
+        <tr>
+            <td>application/x-pdf</td>
+
+            <td>Adobe Acrobat Format</td>
+        </tr>
+    </table><br>
+
+    <h1>Table: RowSpan and ColSpan</h1>
+
+    <table border>
+        <caption>
+            MIME Content-Type
+        </caption>
+
+        <tr>
+            <th rowspan="4" valign="top">Items</th>
+
+            <th colspan="2">Types and Their Meaning</th>
+        </tr>
+
+        <tr>
+            <td>Application/postscript</td>
+
+            <td>PostScript</td>
+        </tr>
+
+        <tr align="center">
+            <td>Application/rtf</td>
+
+            <td>MS Rich Text Format</td>
+        </tr>
+
+        <tr>
+            <td>Application/x-pdf</td>
+
+            <td>Adobe Format</td>
+        </tr>
+    </table><br>
+
+    <h2>Draw the table described here</h2>
+
+    <table border>
+        <tr>
+            <td>Datal</td>
+
+            <td rowspan="2">Data2</td>
+
+            <td>Data3</td>
+        </tr>
+
+        <tr>
+            <td>Data4</td>
+
+            <td>Data5</td>
+        </tr>
+    </table>
+
+    <h2>Draw the table described here</h2>
+
+    <table border>
+        <tr>
+            <th rowspan="2" colspan="2"></th>
+
+            <th colspan="2">Average</th>
+        </tr>
+
+        <tr>
+            <th>Cost</th>
+
+            <th>Time</th>
+        </tr>
+
+        <tr>
+            <th rowspan="2">Projects</th>
+
+            <th>P1</th>
+
+            <td>100</td>
+
+            <td>7</td>
+        </tr>
+
+        <tr>
+            <th>P2</th>
+
+            <td>250</td>
+
+            <td><a href="mailto:caoyangkaka@gmail.com">Mail</a></td>
+        </tr>
+    </table><br>
+
+    <h1>Image</h1>
+
+    <table border>
+        <tr>
+            <td><a href="http://www.baidu.com"><img src="ferrari.jpg" alt="Ferrari" border="0" width="50" height="50"></a></td>
+
+            <td><img src="ferrari.jpg" alt="Ferrari" border="10" width="50" height="50"></td>
+
+            <td><img src="ferrari.jpg" alt="Ferrari" border="10" width="100" height="100"></td>
+
+            <td><img src="ferrari.jpg" alt="Ferrari" border="50" width="200" height="300"></td>
+
+            <td><img src="xferrari.jpg" alt="Ferrari" border="10" width="50" height="50"></td>
+        </tr>
+
+        <tr>
+            <td>50 x 50, no border</td>
+
+            <td>50 x 50, border=10</td>
+
+            <td>100 x 100, border=10</td>
+
+            <td>200 x 300, border=50</td>
+
+            <td>incorrect file name, 50 x 50, border=10</td>
+        </tr>
+    </table><br>
+
+</body>
+</html>
