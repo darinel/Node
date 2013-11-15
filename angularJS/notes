@@ -1,2 +1,45 @@
 Angular JS：
-1. angularjs应用解析：
+1. angularjs快速开始：
+ 	1. <html ng-app>
+ 		ng-app 告诉angularjs去处理整个html页并且引导应用。
+ 	2. <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+ 	3. AngularJS双向数据绑定（bi-directional data binding）
+ 		Your name: <input type="text" ng-model="yourname" placeholder="World">
+		<hr>
+		Hello {{yourname || 'World'}}!
+2. AngularJS应用的解析：
+	应用程序的三个组成部分，解释如何映射到模型-视图-控制器的设计模式：
+	1. templates:
+	模板是您用HTML和CSS编写的文件，展现应用的视图。您可给HTML添加新的元素、属性标记，作为AngularJS编译器的指令。 AngularJS编译器是完全可扩展的，这意味着通过AngularJS您可以在HTML中构建您自己的HTML标记！
+	2. logic and behavior:
+	应用程序逻辑和行为是您用JavaScript定义的控制器。AngularJS与标准AJAX应用程序不同，您不需要另外编写侦听器或DOM控制器，因为它们已经内置到AngularJS中了。这些功能使您的应用程序逻辑很容易编写、测试、维护和理解。
+	3. Data:
+	模型是从AngularJS作用域对象的属性引申的。模型中的数据可能是Javascript对象、数组或基本类型，这都不重要，重要的是，他们都属于AngularJS作用域对象。
+
+	Notice: 模型是从AngularJS作用域对象的属性引申的。模型中的数据可能是Javascript对象、数组或基本类型，这都不重要，重要的是，他们都属于AngularJS作用域对象。
+3. AngularJS教程：
+	1. install the node and testacular
+4. 00: 引导程序：
+	1. np-app指令：
+		<html lang="en" ng-app>
+		ng-app指令标记了AngularJS脚本的作用域，在<html>中添加ng-app属性即说明整个<html>都是AngularJS脚本作用域。开发者也可以在局部使用ng-app指令，如<div ng-app>，则AngularJS脚本仅在该<div>中运行。
+	2. AngularJS脚本标签：
+		<script src="lib/angular/angular.js"></script>
+		这行代码载入angularjs脚本，当浏览器将整个HTML页面载入完毕后将会执行该angular.js脚本，angular.js脚本运行后将会寻找含有ng-app指令的HTML标签，该标签即定义了AngularJS应用的作用域。
+	3. 双大括号绑定的表达式：
+		<p>Nothing here {{'yet' + '!'}}</p>
+		这行代码演示了AngularJS模板的核心功能——绑定，这个绑定由双大括号{{}}和表达式'yet' + '!'组成。
+
+		这个绑定告诉AngularJS需要运算其中的表达式并将结果插入DOM中，接下来的步骤我们将看到，DOM可以随着表达式运算结果的改变而实时更新。
+
+		AngularJS表达式Angular expression是一种类似于JavaScript的代码片段，AngularJS表达式仅在AngularJS的作用域中运行，而不是在整个DOM中运行。
+
+	4. 引导AngularJS应用：
+		AngularJS应用引导过程有3个重要点：
+		1. 注入器(injector)将用于创建此应用程序的依赖注入(dependency injection)；
+		2. 注入器将会创建根作用域作为我们应用模型的范围；
+		3. AngularJS 将会链接根作用域中的DOM，从用ngApp 标记的HTML 标签开始，逐步处理DOM 中指令和绑定。
+
+5. 01: 静态模板：
+6. 02: AngularJS模板：
+	1. 模型、视图和控制器	
