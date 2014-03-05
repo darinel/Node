@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h2 My Form Example
+  form(method='post' action='/')
+    fieldset
+      legend Add a user
+      p
+        label First name
+        input(name='user[first_name]')
+      p
+        label Last name
+        input(name='user[surname]')
+      p
+        input(type='submit', value='Save')
+
+  h2 Passing data to the view layer
+  h3 First Name
+    p= user.first_name
+  h3 Surname
+    p= user.surname

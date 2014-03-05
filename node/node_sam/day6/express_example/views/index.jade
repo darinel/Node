@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1= title
+
+  p Welcome to #{title}
+  - var name = "Nissan"
+  p Welcome to #{name}!
+  section#wrapper 
+  h2 Basic Structure
+    section
+      p
+        span This is a span within a p within a section!
+  - cars = ['VW', 'Toyota', 'Honda', 'BYD']
+  mixin print(cars)
+    ul
+      each car in cars
+        li= car
+  mixin print(cars)
+  - var raining = false
+  - if(raining)
+    p It is raining.
+  - else
+    p It is not raining.
+  - phones = ['Iphone', 'Galaxy', 'XiaoMi', 'Meizu']
+  mixin print(phones)
+  include includes/footer
