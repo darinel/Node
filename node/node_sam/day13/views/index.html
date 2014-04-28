@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="utf-8">
+    <title>Chat Application</title>
+</head>
+<body>
+<p>Chat Application</p>
+<form id="set-nickname">
+    <label for="nickname">NickName:</label>
+    <input type="text" id="nickname" />
+    <input type="submit" />
+</form>
+<p id="notify"></p>
+<section id="nicknames"></section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect();
+    jQuery(function ($) {
+        var nickName = $('#nickname');
+        socket.on('nicknames', function (data) {
+            $('#nicknames').empty().append($('<ul>'));
+            for(var i=0; i<data.length; i++) {
+                $('#nicknames ul').append('<li>' + data[i] + '</li>');
+            }
+        });
+        var setNicknameForm = $('#set-nickname');
+        setNicknameForm.submit(function(event) {
+            event.preventDefault();
+            socket.emit('nickname', nickName.val(), function(data) {
+                if(data) {
+                    console.log('NickName are successfully.');
+                    setNicknameForm.hide();
+                    $('#notify').text('');
+                } else {
+                    $('#notify').text('Sorry, the nickname is already taken.');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
